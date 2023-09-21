@@ -6,7 +6,7 @@ import numpy as np
 from numpy.random import random
 
 import funcs
-from clusterbh.clusterbh import clusterBH
+from clusterbh import clusterBH
 from funcs import MergerOutcome
 
 DEBUG_MODE = False

@@ -1,0 +1,7 @@
+runs/*
+temp/*
+*.pdf
+*.png
+*.jpg
+test/*
+.idea

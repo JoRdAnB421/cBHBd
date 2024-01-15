@@ -57,7 +57,7 @@ class clusterBH:
         self.outfile = "cluster.txt"
 
         # Mass loss mechanism
-        self.tidal = True
+        self.tidal = False
         self.Rht = 0.125  # ratio of rh/rt to give correct Mdot [17/3/22]
         self.Vc = 220.  # [km/s] circular velocity of singular isothermal galaxy
 
@@ -160,7 +160,7 @@ class clusterBH:
             Mst_dot -= self.nu * Mst / t
             rh_dot -= Mst_dot / M * rh
 
-            # Add tidal mass loss
+        # Add tidal mass loss
         if (self.tidal):
             xi = 0.6 * self.zeta * (rh / self._rt(M) / self.Rht) ** 1.5
             Mst_dot -= xi * M / trh
@@ -233,8 +233,9 @@ class clusterBH:
                 f.write("%12.5e %12.5e %12.5e %12.5e %12.5e\n" % (self.t[i] / 1e3, self.Mbh[i],
                                                                   self.M[i], self.rh[i],
                                                                   self.mmax[i]))
+
             f.close()
 
 
 if __name__ == "__main__":
-    clusterBH(1e6, 1e5)
+    clusterBH(1e4, 1.2e3)

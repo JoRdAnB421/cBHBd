@@ -4,4 +4,4 @@ temp/*
 *.png
 *.jpg
 test/*
-.idea
+.idea__pycache__/

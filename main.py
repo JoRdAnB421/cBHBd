@@ -19,6 +19,8 @@ tf0_arr = astropy.cosmology.Planck18.lookback_time(z_arr).value
 M_step = 0.1
 Mcl0_arr = 10 ** np.arange(np.log10(1e2), np.log10(2e7), M_step)  # Including endpoint
 
+Mcl0_arr = np.array([1e4, 5e4, 1e5])
+
 # Metallicity
 Z_files_arr, Z_arr = [], []
 with open("data/BHs/metallicity.txt", "r") as f:
@@ -29,7 +31,7 @@ with open("data/BHs/metallicity.txt", "r") as f:
 
 Mcl0_arr = np.flip(Mcl0_arr)
 
-seeds = np.arange(10001, 10002, 1, dtype=int)
+seeds = np.arange(10001, 10021, 1, dtype=int)
 
 for seed in seeds:
     np.random.seed(seed)
@@ -39,8 +41,8 @@ for seed in seeds:
         for tf0 in tf0_arr:
             for M in Mcl0_arr:
                 input_pars.append([tf0, M, [Z_file, Z]])
-    # res = map(run_model, input_pars)  # Use this for non-parallel runs
-    res = p_tqdm.p_umap(run_model, input_pars)
+    res = map(run_model, input_pars)  # Use this for non-parallel runs
+    # res = p_tqdm.p_umap(run_model, input_pars)
 
     with open(f"runs/mergers_{seed}.txt", "w") as f:
         for full_bhout in res:

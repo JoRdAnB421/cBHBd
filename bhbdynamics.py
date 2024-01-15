@@ -12,7 +12,7 @@ from funcs import MergerOutcome
 DEBUG_MODE = False
 
 
-def run_model(input_params, supernova_model="RAPID", rho_h_i=1e5):  # Initial density MSun/pc3
+def run_model(input_params, supernova_model="DELAY", rho_h_i=1.2e3):  # Initial density MSun/pc3
     tf0, Mcl_i, [Z_file, Z] = input_params
     tf0 *= 1e9
     try:

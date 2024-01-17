@@ -3,8 +3,14 @@ import time
 import astropy.cosmology
 import numpy as np
 from p_tqdm import p_tqdm
-
+import os
 from bhbdynamics import run_model
+
+# Make runs directory if doesn't exist
+cwd = os.getcwd()
+path = os.path.join(cwd, 'runs')
+
+if not os.path.exists(path): os.mkdir(path)
 
 print(f"---------------- RUN BEGIN ----------------")
 
@@ -23,7 +29,7 @@ Mcl0_arr = np.array([1e4, 5e4, 1e5])
 
 # Metallicity
 Z_files_arr, Z_arr = [], []
-with open("data/BHs/metallicity.txt", "r") as f:
+with open("data/BHs/new_metal.txt", "r") as f:
     for line in f.readlines():
         Z_file, Z = line.split()
         Z_files_arr.append(Z_file)

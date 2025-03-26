@@ -5,4 +5,3 @@ temp/*
 *.jpg
 test/*
 __pycache__/
-.idea

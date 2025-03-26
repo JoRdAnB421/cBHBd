@@ -1,5 +1,5 @@
 import sys
-
+from scipy.integrate import quad
 import numpy as np
 from numpy.random import random
 from scipy.optimize import bisect
@@ -141,3 +141,56 @@ def evolve_eccentricity(a0, e0, m1, m2, f=10):
     except Exception as e:
         print(e, file=sys.stderr)
         return np.nan
+
+
+"""
+Functions below are spefically for producing merger rate computations
+"""
+
+
+def GCDensityInt(alpha, Delta, Mc, Mlo=100):
+    '''
+    Computes integral of the GC mass function
+    
+    Input  >>> alpha = Power index
+               Delta = GC parameter 
+               Mc    = GC parameter (total mass)
+               Mlo   = 100 Msol minimum cluster mass
+    
+    Output >>> res =  approximate result of integral
+    '''
+    # Define the GC function
+    phi = lambda M : M*(M+Delta)**(-alpha)*np.exp(-(M+Delta)/Mc) * M
+
+    res = quad(phi, Mlo, np.Infinity) # Integrate between Mlo and infty
+
+    return res
+
+
+def GCDensityInitial(M0, alpha, Mc):
+    '''
+    Computes initial GC mass function
+    
+    Input  >>> M0    = Intial cluster mass
+               alpha = Power index
+               Delta = GC parameter 
+               Mc    = GC parameter (total mass)
+    
+    Output >>> func =  initial GC function
+    '''
+    return 2*(M0)**(-alpha)*np.exp(-M0/Mc)*M0
+
+
+def GCDensityInitialInt(alpha, Mc, Mlo=100):
+    '''
+    Computes integral of the initial GC mass function
+    
+    Input  >>> alpha = Power index
+               Mc    = GC parameter (total mass)
+               Mlo   = 100 Msol minimum cluster mass
+    
+    Output >>> res =  approximate result of integral
+    '''
+    res = quad(GCDensityInitial, Mlo, np.Infinity, args=(alpha, Mc))
+    return res
+

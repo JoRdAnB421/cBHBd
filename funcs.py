@@ -191,6 +191,6 @@ def GCDensityInitialInt(alpha, Mc, Mlo=100):
     
     Output >>> res =  approximate result of integral
     '''
-    res = quad(GCDensityInitial, Mlo, np.Infinity)
+    res = quad(GCDensityInitial, Mlo, np.Infinity, args=(alpha, Mc))
     return res
 
